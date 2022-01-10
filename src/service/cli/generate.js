@@ -11,6 +11,8 @@ const {ExitCode} = require(`../../constants`);
 const fs = require(`fs`);
 
 const DEFAULT_COUNT = 1;
+const MAX_MOCKS_COUNT = 1000;
+const MAX_ANNOUNCE_COUNT = 5;
 const FILE_NAME = `mocks.json`;
 
 const TITLES = [
@@ -67,7 +69,7 @@ const generateOffers = (count) => (
   Array(count).fill({}).map(() => ({
     title: TITLES[getRandomInt(0, TITLES.length - 1)],
     createdDate: getRandomDate(),
-    announce: shuffle(SENTENCES).slice(0, getRandomInt(1, 5)).join(` `),
+    announce: shuffle(SENTENCES).slice(0, getRandomInt(1, MAX_ANNOUNCE_COUNT)).join(` `),
     fullText: shuffle(SENTENCES).slice(0, getRandomInt(1, SENTENCES.length)).join(` `),
     category: shuffle(CATEGORIES).slice(0, getRandomInt(1, CATEGORIES.length)),
   }))
@@ -78,8 +80,8 @@ module.exports = {
   run: (count) => {
     let countOffer = Number.parseInt(count, 10) || DEFAULT_COUNT;
 
-    if (countOffer > 1000) {
-      countOffer = 1000;
+    if (countOffer > MAX_MOCKS_COUNT) {
+      countOffer = MAX_MOCKS_COUNT;
     }
 
     const content = JSON.stringify(generateOffers(countOffer));
