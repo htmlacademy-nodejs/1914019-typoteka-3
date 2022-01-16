@@ -23,14 +23,14 @@ const FILE_NAME = `mocks.json`;
 const readContent = async (filePath) => {
   try {
     const content = await fs.readFile(filePath, `utf8`);
-    return content.trim().split(`\n`);
+    return content.trim().split(`\n`).filter((string) => string !== ``);
   } catch (err) {
     console.error(chalk.red(err));
     return [];
   }
 };
 
-const generateOffers = (count, titles, categories, sentences) => (
+const generateOffers = (count, {titles, sentences, categories}) => (
   Array(count).fill({}).map(() => ({
     title: titles[getRandomInt(0, titles.length - 1)],
     createdDate: getRandomDate(),
@@ -49,11 +49,15 @@ module.exports = {
       countOffer = MAX_MOCKS_COUNT;
     }
 
-    const sentences = await readContent(FILE_SENTENCES_PATH);
-    const titles = await readContent(FILE_TITLES_PATH);
-    const categories = await readContent(FILE_CATEGORIES_PATH);
+    const [titles, sentences, categories] = await Promise.all([readContent(FILE_TITLES_PATH), readContent(FILE_SENTENCES_PATH), readContent(FILE_CATEGORIES_PATH)]);
 
-    const content = JSON.stringify(generateOffers(countOffer, titles, categories, sentences));
+    const options = {
+      titles,
+      sentences,
+      categories
+    };
+
+    const content = JSON.stringify(generateOffers(countOffer, options));
 
     try {
       await fs.writeFile(FILE_NAME, content);
