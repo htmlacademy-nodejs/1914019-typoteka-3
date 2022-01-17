@@ -23,7 +23,7 @@ const FILE_NAME = `mocks.json`;
 const readContent = async (filePath) => {
   try {
     const content = await fs.readFile(filePath, `utf8`);
-    return content.trim().split(`\n`).filter((string) => string !== ``);
+    return content.split(`\n`).map((string) => string.trim()).filter((string) => string !== ``);
   } catch (err) {
     console.error(chalk.red(err));
     return [];
