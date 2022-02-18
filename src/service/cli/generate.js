@@ -8,7 +8,7 @@ const {
 
 const {ExitCode} = require(`../../constants`);
 
-const fs = require(`fs`).promises;
+const fs = require(`fs/promises`);
 const chalk = require(`chalk`);
 
 const FILE_TITLES_PATH = `./data/titles.txt`;

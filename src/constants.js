@@ -13,5 +13,6 @@ module.exports = {
     UNAUTHORIZED: 401,
   },
   DEFAULT_COMMAND: `--help`,
+  DEFAULT_PORT: 8080,
   USER_ARGV_INDEX: 2,
 };
