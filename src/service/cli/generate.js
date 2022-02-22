@@ -10,6 +10,7 @@ const {ExitCode} = require(`../../constants`);
 
 const fs = require(`fs/promises`);
 const chalk = require(`chalk`);
+const path = require(`path`);
 
 const FILE_TITLES_PATH = `./data/titles.txt`;
 const FILE_CATEGORIES_PATH = `./data/categories.txt`;
@@ -22,7 +23,7 @@ const FILE_NAME = `mocks.json`;
 
 const readContent = async (filePath) => {
   try {
-    const content = await fs.readFile(filePath, `utf8`);
+    const content = await fs.readFile(path.resolve(filePath), `utf8`);
     return content.split(`\n`).map((string) => string.trim()).filter((string) => string !== ``);
   } catch (err) {
     console.error(chalk.red(err));
@@ -60,7 +61,7 @@ module.exports = {
     const content = JSON.stringify(generateOffers(countOffer, options));
 
     try {
-      await fs.writeFile(FILE_NAME, content);
+      await fs.writeFile(path.resolve(FILE_NAME), content);
       return console.log(chalk.green(`Operation success. File created.`));
     } catch (err) {
       console.error(chalk.red(`Can't write data to file...`));
