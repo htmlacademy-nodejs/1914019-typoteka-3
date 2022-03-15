@@ -29,12 +29,12 @@ module.exports = {
 
     app.use(router);
 
-    app.listen(DEFAULT_PORT, (err) => {
+    app.listen(port, (err) => {
       if (err) {
         return console.error(`Ошибка при создании сервера`, err);
       }
 
-      return console.info(chalk.green(`Ожидаю соединений на ${DEFAULT_PORT}`));
+      return console.info(chalk.green(`Ожидаю соединений на ${port}`));
 
     });
   },
