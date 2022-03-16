@@ -14,5 +14,6 @@ module.exports = {
   },
   DEFAULT_COMMAND: `--help`,
   DEFAULT_PORT: 8080,
+  PUBLIC_DIR: `public`,
   USER_ARGV_INDEX: 2,
 };

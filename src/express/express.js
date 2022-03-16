@@ -1,17 +1,16 @@
 'use strict';
 
 const express = require(`express`);
+const path = require(`path`);
 
-const mainRoutes = require(`./routes/main-routes`);
-const articlesRoutes = require(`./routes/articles-routes`);
-const myRoutes = require(`./routes/my-routes`);
-
-const {DEFAULT_PORT} = require(`../constants`);
+const {DEFAULT_PORT, PUBLIC_DIR} = require(`../constants`);
+const router = require(`./routes/index`);
 
 const app = express();
 
-app.use(`/`, mainRoutes);
-app.use(`/articles`, articlesRoutes);
-app.use(`/my`, myRoutes);
+app.use(express.static(path.resolve(__dirname, PUBLIC_DIR)));
+app.set(`views`, path.resolve(__dirname, `templates`));
+app.set(`view engine`, `pug`);
+app.use(router);
 
 app.listen(DEFAULT_PORT);

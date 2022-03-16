@@ -4,6 +4,7 @@ const chalk = require(`chalk`);
 const http = require(`http`);
 const fs = require(`fs/promises`);
 const {HttpCode} = require(`../../constants`);
+const path = require(`path`);
 
 const DEFAULT_PORT = 3000;
 const FILENAME = `mocks.json`;
@@ -31,7 +32,7 @@ const onClientConnect = async (req, res) => {
   switch (req.url) {
     case `/`:
       try {
-        const fileContent = await fs.readFile(FILENAME);
+        const fileContent = await fs.readFile(path.resolve(FILENAME));
         const mocks = JSON.parse(fileContent);
         const message = mocks.map((post) => `<li>${post.title}</li>`).join(``);
         sendResponse(res, HttpCode.OK, `<ul>${message}</ul>`);
