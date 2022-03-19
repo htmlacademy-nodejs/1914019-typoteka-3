@@ -15,5 +15,6 @@ module.exports = {
   DEFAULT_COMMAND: `--help`,
   DEFAULT_PORT: 8080,
   PUBLIC_DIR: `public`,
+  MOCKS_FILE_NAME: `mocks.json`,
   USER_ARGV_INDEX: 2,
 };
